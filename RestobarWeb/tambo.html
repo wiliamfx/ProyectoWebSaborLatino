@@ -6,452 +6,177 @@
     <title>Restobar</title>
     <link rel="stylesheet" href="tambo.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
-    <style>
-        /* Paleta de Colores */
-        :root {
-            --color-1: #6482AD;  /* Color principal */
-            --color-2: #7FA1C3;  /* Color secundario */
-            --color-3: #E2DAD6;  /* Color neutro */
-            --color-4: #F5EDED;  /* Color claro */
-            --color-5: #D6E1F0;  /* Color suave */
-            --color-6: #ffffff;  /* Blanco puro */
-        }
-
-        /* Estilos globales */
-        body {
-            font-family: 'Arial', sans-serif;
-            margin: 0;
-            padding: 0;
-            background-color: var(--color-4);
-        }
-
-        /* Header */
-        .header {
-            background-color: var(--color-1);
-            padding: 20px 0;
-            text-align: center;
-            color: var(--color-6);
-        }
-
-        .header .logo {
-            font-size: 2.5rem;
-            font-weight: bold;
-            color: var(--color-6);
-            text-decoration: none;
-        }
-
-        /* Menú */
-        .navbar ul {
-            list-style: none;
-            padding: 0;
-            display: flex;
-            justify-content: center;
-            gap: 20px;
-        }
-
-        .navbar li {
-            display: inline-block;
-        }
-
-        .navbar a {
-            color: var(--color-6);
-            font-size: 1.2rem;
-            text-decoration: none;
-            padding: 10px;
-            border-radius: 5px;
-        }
-
-        .navbar a:hover {
-            background-color: var(--color-2);
-        }
-
-        /* Carrusel de promociones */
-        .promociones {
-            background-color: var(--color-1);
-            padding: 40px 0;
-            text-align: center;
-            overflow: hidden;
-        }
-
-        .promociones h2 {
-            font-size: 2.5rem;
-            margin-bottom: 20px;
-            color: var(--color-6);
-        }
-
-        .promocion-cards {
-            display: flex;
-            gap: 20px;
-            padding: 20px 0;
-            animation: moverCarrusel 50s linear infinite;
-        }
-
-        @keyframes moverCarrusel {
-            0% {
-                transform: translateX(0);
-            }
-            100% {
-                transform: translateX(-100%);
-            }
-        }
-
-        .promocion-card {
-            background-color: var(--color-2);
-            border-radius: 10px;
-            overflow: hidden;
-            width: 300px;
-            flex-shrink: 0;
-            text-align: center;
-            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
-            transition: transform 0.3s ease;
-            position: relative; /* Para posicionar el descuento y precio */
-        }
-
-        .promocion-card:hover {
-            transform: scale(1.05);
-        }
-
-        .promocion-card img {
-            width: 100%;
-            height: 200px;
-            object-fit: cover;
-        }
-
-        .promocion-card h3 {
-            font-size: 1.5rem;
-            margin-top: 10px;
-            color: var(--color-6);
-        }
-
-        .promocion-card p {
-            font-size: 1rem;
-            color: var(--color-3);
-            margin: 10px 0;
-        }
-
-        /* Contenedor de descuento y precio */
-        .descuento-precio {
-            position: absolute;
-            top: 10px;
-            left: 10px;
-            background-color: var(--color-6);
-            color: var(--color-1);
-            padding: 10px;
-            border-radius: 5px;
-            font-size: 1rem;
-        }
-
-        .descuento-precio .precio {
-            font-weight: bold;
-        }
-
-        .descuento-precio .descuento {
-            font-size: 1.2rem;
-            color: red;
-        }
-
-        /* Cantidad y añadir al carrito */
-        .cantidad {
-            margin-top: 15px;
-        }
-
-        .cantidad input {
-            width: 50px;
-            padding: 5px;
-            font-size: 1rem;
-            text-align: center;
-            margin-right: 10px;
-        }
-
-        .cantidad button {
-            background-color: var(--color-4);
-            color: var(--color-2);
-            padding: 10px 20px;
-            border: none;
-            font-size: 1rem;
-            cursor: pointer;
-            margin: 5px;
-            border-radius: 5px;
-            transition: background-color 0.3s ease;
-        }
-
-        .cantidad button:hover {
-            background-color: var(--color-3);
-        }
-
-        /* Banner */
-        .banner {
-            width: 100%;
-            height: 200px;
-            background-color: var(--color-5);
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            color: var(--color-1);
-            font-size: 2rem;
-            margin-bottom: 20px;
-            visibility: hidden;
-            animation: bannerIniciar 10s forwards;
-        }
-
-        @keyframes bannerIniciar {
-            0% { visibility: visible; }
-            10% { visibility: hidden; }
-            100% { visibility: visible; }
-        }
-
-        /* Sección de Categorías */
-        .categorias {
-            background-color: var(--color-5);
-            padding: 40px 0;
-            text-align: center;
-            position: relative;
-        }
-
-        .categorias h2 {
-            font-size: 2.5rem;
-            margin-bottom: 20px;
-            color: var(--color-1);
-        }
-
-        .categoria-cards {
-            display: flex;
-            justify-content: center;
-            flex-wrap: nowrap;
-            overflow: hidden;
-            gap: 20px;
-            margin: 0 20px;
-        }
-
-        .categoria-card {
-            background-color: var(--color-2);
-            border-radius: 10px;
-            width: 300px;
-            height: 350px;
-            text-align: center;
-            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
-            cursor: pointer;
-            transition: transform 0.3s ease;
-        }
-
-        .categoria-card:hover {
-            transform: scale(1.05);
-        }
-
-        .categoria-card img {
-            width: 100%;
-            height: 200px;
-            object-fit: cover;
-        }
-
-        .categoria-card h3 {
-            font-size: 1.5rem;
-            color: var(--color-6);
-        }
-
-        .flecha {
-            position: absolute;
-            top: 50%;
-            transform: translateY(-50%);
-            font-size: 2rem;
-            color: var(--color-1);
-            cursor: pointer;
-        }
-
-        .left {
-            left: 10px;
-        }
-
-        .right {
-            right: 10px;
-        }
-
-        /* Footer */
-        .footer {
-            background-color: var(--color-1);
-            color: var(--color-6);
-            padding: 20px;
-            text-align: center;
-        }
-
-        .footer p {
-            margin: 0;
-        }
-    </style>
+    <!-- FontAwesome para los iconos -->
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
 </head>
 <body>
-    <!-- Header -->
-    <header class="header">
+
+    <header class="promo-header">
+        <div class="promo-banner">
+            <p>¡Promoción del Año! ¡No te lo pierdas!</p>
+        </div>
+    </header>
+    
+    <header class="menu-header">
         <div class="menu container">
-            <a href="#" class="logo">Restobar</a>
+            <a href="#" class="logo">
+                <img src="imagenes/Logo.png" alt="Sabor-Latino" style="height: 100px;">
+            </a>
             <nav class="navbar">
                 <ul>
-                    <li><a href="#">Inicio</a></li>
-                    <li><a href="#">Reservas</a></li>
-                    <li><a href="#">Promociones</a></li>
-                    <li><a href="#">Carrito</a></li>
+                    <li><a href="#"><i class="fas fa-home"></i> Inicio</a></li>
+                    <li><a href="#"><i class="fas fa-calendar-alt"></i> Reservas</a></li>
+                    <li><a href="#"><i class="fas fa-tags"></i> Promociones</a></li>
+                    <li class="carrito"><a href="#"><i class="fas fa-shopping-cart"></i> Carrito</a></li>
                 </ul>
             </nav>
         </div>
     </header>
-
-    <!-- Banner -->
+    
     <section class="banner">
-        <p>¡Nuestras Ofertas Exclusivas Solo Para Ti!</p>
-    </section>
+        <input type="radio" name="slider" id="slide1" checked>
+        <input type="radio" name="slider" id="slide2">
+        <input type="radio" name="slider" id="slide3">
+        <input type="radio" name="slider" id="slide4">
 
-    <!-- Carrusel de Promociones -->
-    <section class="promociones">
-        <h2>Ofertas Especiales</h2>
-        <div class="promocion-cards">
-            <div class="promocion-card">
-                <div class="descuento-precio">
-                    <div class="descuento">-50%</div>
-                    <div class="precio">$20.00</div>
-                </div>
-                <img src="imagenes/coctelees.webp" alt="Promoción 1">
-                <h3>Pizza Deluxe</h3>
-                <p>¡Deliciosa pizza con extra queso!</p>
-                <div class="cantidad">
-                    <input type="number" value="1" min="1">
-                    <button>Añadir al carrito</button>
-                </div>
-            </div>
-            <div class="promocion-card">
-                <div class="descuento-precio">
-                    <div class="descuento">-30%</div>
-                    <div class="precio">$15.00</div>
-                </div>
-                <img src="promocion2.jpg" alt="Promoción 2">
-                <h3>Hamburguesa Especial</h3>
-                <p>Disfruta de nuestra hamburguesa premium.</p>
-                <div class="cantidad">
-                    <input type="number" value="1" min="1">
-                    <button>Añadir al carrito</button>
-                </div>
-            </div>
-            <div class="promocion-card">
-                <div class="descuento-precio">
-                    <div class="descuento">-50%</div>
-                    <div class="precio">$20.00</div>
-                </div>
-                <img src="imagenes/coctelees.webp" alt="Promoción 1">
-                <h3>Pizza Deluxe</h3>
-                <p>¡Deliciosa pizza con extra queso!</p>
-                <div class="cantidad">
-                    <input type="number" value="1" min="1">
-                    <button>Añadir al carrito</button>
-                </div>
-            </div>
-            <div class="promocion-card">
-                <div class="descuento-precio">
-                    <div class="descuento">-50%</div>
-                    <div class="precio">$20.00</div>
-                </div>
-                <img src="imagenes/coctelees.webp" alt="Promoción 1">
-                <h3>Pizza Deluxe</h3>
-                <p>¡Deliciosa pizza con extra queso!</p>
-                <div class="cantidad">
-                    <input type="number" value="1" min="1">
-                    <button>Añadir al carrito</button>
-                </div>
-            </div>
-            <div class="promocion-card">
-                <div class="descuento-precio">
-                    <div class="descuento">-50%</div>
-                    <div class="precio">$20.00</div>
-                </div>
-                <img src="imagenes/coctelees.webp" alt="Promoción 1">
-                <h3>Pizza Deluxe</h3>
-                <p>¡Deliciosa pizza con extra queso!</p>
-                <div class="cantidad">
-                    <input type="number" value="1" min="1">
-                    <button>Añadir al carrito</button>
-                </div>
-            </div>
-            <div class="promocion-card">
-                <div class="descuento-precio">
-                    <div class="descuento">-50%</div>
-                    <div class="precio">$20.00</div>
-                </div>
-                <img src="imagenes/coctelees.webp" alt="Promoción 1">
-                <h3>Pizza Deluxe</h3>
-                <p>¡Deliciosa pizza con extra queso!</p>
-                <div class="cantidad">
-                    <input type="number" value="1" min="1">
-                    <button>Añadir al carrito</button>
-                </div>
-            </div>
-            <div class="promocion-card">
-                <div class="descuento-precio">
-                    <div class="descuento">-50%</div>
-                    <div class="precio">$20.00</div>
-                </div>
-                <img src="imagenes/coctelees.webp" alt="Promoción 1">
-                <h3>Pizza Deluxe</h3>
-                <p>¡Deliciosa pizza con extra queso!</p>
-                <div class="cantidad">
-                    <input type="number" value="1" min="1">
-                    <button>Añadir al carrito</button>
-                </div>
-            </div>
-            <div class="promocion-card">
-                <div class="descuento-precio">
-                    <div class="descuento">-50%</div>
-                    <div class="precio">$20.00</div>
-                </div>
-                <img src="imagenes/coctelees.webp" alt="Promoción 1">
-                <h3>Pizza Deluxe</h3>
-                <p>¡Deliciosa pizza con extra queso!</p>
-                <div class="cantidad">
-                    <input type="number" value="1" min="1">
-                    <button>Añadir al carrito</button>
-                </div>
-            </div>
-            <div class="promocion-card">
-                <div class="descuento-precio">
-                    <div class="descuento">-50%</div>
-                    <div class="precio">$20.00</div>
-                </div>
-                <img src="imagenes/coctelees.webp" alt="Promoción 1">
-                <h3>Pizza Deluxe</h3>
-                <p>¡Deliciosa pizza con extra queso!</p>
-                <div class="cantidad">
-                    <input type="number" value="1" min="1">
-                    <button>Añadir al carrito</button>
-                </div>
-            </div>
+        <div class="banner-slider">
+            <div class="banner-slide" style="background-image: url('imagenes/b7.png');"></div>
+            <div class="banner-slide" style="background-image: url('imagenes/b9.png');"></div>
+            <div class="banner-slide" style="background-image: url('imagenes/b2.png');"></div>
+            <div class="banner-slide" style="background-image: url('imagenes/b7.png');"></div>
         </div>
-    </section>
 
+        <!-- Puntos de navegación -->
+        <div class="dots">
+            <label for="slide1" class="dot"></label>
+            <label for="slide2" class="dot"></label>
+            <label for="slide3" class="dot"></label>
+            <label for="slide4" class="dot"></label>
+        </div>
+
+        <button>Ver lista</button>
+    </section>
+    <section class="promociones">
+        <h2>¡PROMOS DEL DÍA!</h2>
+        <div class="promocion-container">
+            <!-- Card 1 -->
+            <div class="promocion-card">
+                <img src="imagenes/coctelees.webp" alt="Pack Coca Cola + Inca Kola">
+                <div class="promo-details">
+                    <p>Pack (2 Coca Cola x 1 Lt + 2 Inca Kola x 1 Lt)</p>
+                    <p><span class="precio-original">S/ 19.60</span> S/ 13.90</p>
+                    <a href="#" class="ver-producto">Ver producto</a>
+                </div>
+            </div>
+    
+            <!-- Card 2 -->
+            <div class="promocion-card">
+                <img src="imagen2.jpg" alt="Pack Vodka Smirnoff">
+                <div class="promo-details">
+                    <p>Pack (1 Vodka Smirnoff Tamarindo 700 ml + 1 Vaso de shot Bandeo + 1 Jugo de naranja 1.5 Lt + 1 Hielo)</p>
+                    <p><span class="precio-original">S/ 50.90</span> S/ 42.90</p>
+                    <a href="#" class="ver-producto">Ver producto</a>
+                </div>
+            </div>
+    
+            <!-- Card 3 -->
+            <div class="promocion-card">
+                <img src="imagen3.jpg" alt="Cerveza Tres Cruces">
+                <div class="promo-details">
+                    <p>Cerveza Tres Cruces Lager Six Pack Lata x 310 ml</p>
+                    <p><span class="precio-original">S/ 23.90</span> S/ 18.90</p>
+                    <a href="#" class="ver-producto">Ver producto</a>
+                </div>
+            </div>
+    
+            <!-- Card 4 -->
+            <div class="promocion-card">
+                <img src="imagen4.jpg" alt="Pack Coca Cola + Hamburguesas">
+                <div class="promo-details">
+                    <p>Pack (1 Coca Cola x 1 Lt + 2 Hamburguesas Parrilleras)</p>
+                    <p><span class="precio-original">S/ 20.90</span> S/ 13.90</p>
+                    <a href="#" class="ver-producto">Ver producto</a>
+                </div>
+            </div>
+    
+            <!-- Card 5 -->
+            <div class="promocion-card">
+                <img src="imagen5.jpg" alt="Empanadas + Coca Cola">
+                <div class="promo-details">
+                    <p>Pack (6 Empanada De Carne + 1 Coca Cola x 1 Lt)</p>
+                    <p><span class="precio-original">S/ 24.30</span> S/ 14.90</p>
+                    <a href="#" class="ver-producto">Ver producto</a>
+                </div>
+            </div>
+    
+            <!-- Card 6 -->
+            <div class="promocion-card">
+                <img src="imagen6.jpg" alt="Pack Four Loko">
+                <div class="promo-details">
+                    <p>Pack (2 RTD Four Loko Purple x 473 Ml)</p>
+                    <p><span class="precio-original">S/ 22.00</span> S/ 17.90</p>
+                    <a href="#" class="ver-producto">Ver producto</a>
+                </div>
+            </div>
+    
+            <!-- Card 7 -->
+            <div class="promocion-card">
+                <img src="imagen7.jpg" alt="Piscano Sour Maracuyá">
+                <div class="promo-details">
+                    <p>Piscano Sour Maracuyá 700 ml</p>
+                    <p><span class="precio-original">S/ 22.90</span> S/ 15.90</p>
+                    <a href="#" class="ver-producto">Ver producto</a>
+                </div>
+            </div>
+            
+        </div>
+        <button class="ver-todo">Ver Todo</button>
+    </section>
     <!-- Categorías -->
     <section class="categorias">
         <h2>Categorías</h2>
         <div class="categoria-cards">
             <div class="categoria-card">
-                <img src="imagenes/cocteles.jfif" alt="Categoría 1">
+                <img src="imagenes/cocteles.jfif" alt="Entradas">
                 <h3>Entradas</h3>
             </div>
             <div class="categoria-card">
-                <img src="categoria2.jpg" alt="Categoría 2">
+                <img src="imagenes/categoria2.jpg" alt="Platos Fuertes">
                 <h3>Platos Fuertes</h3>
             </div>
             <div class="categoria-card">
-                <img src="categoria3.jpg" alt="Categoría 3">
+                <img src="imagenes/categoria3.jpg" alt="Bebidas">
                 <h3>Bebidas</h3>
             </div>
             <div class="categoria-card">
-                <img src="categoria4.jpg" alt="Categoría 4">
+                <img src="imagenes/categoria4.jpg" alt="Postres">
                 <h3>Postres</h3>
             </div>
+            <div class="categoria-card">
+                <img src="imagenes/categoria5.jpg" alt="Ensaladas">
+                <h3>Ensaladas</h3>
+            </div>
+            <div class="categoria-card">
+                <img src="imagenes/categoria6.jpg" alt="Snacks">
+                <h3>Snacks</h3>
+            </div>
+            <div class="categoria-card">
+                <img src="imagenes/categoria7.jpg" alt="Especiales">
+                <h3>Especiales</h3>
+            </div>
+            <div class="categoria-card">
+                <img src="imagenes/categoria8.jpg" alt="Vinos">
+                <h3>Vinos</h3>
+            </div>
+            <div class="categoria-card">
+                <img src="imagenes/categoria9.jpg" alt="Cafés">
+                <h3>Cafés</h3>
+            </div>
         </div>
-        <div class="flecha left"><i class="fas fa-chevron-left"></i></div>
-        <div class="flecha right"><i class="fas fa-chevron-right"></i></div>
     </section>
-
-    <!-- Footer -->
     <footer class="footer">
         <p>&copy; 2024 Restobar. Todos los derechos reservados.</p>
     </footer>
+    
 </body>
 </html>
